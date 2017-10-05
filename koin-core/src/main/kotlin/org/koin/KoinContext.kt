@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 
 /**
  * Koin Application Context
- * Context from where you can get beans defines in modules
+ * Context from where you can get beans defined in modules
  *
  * @author Arnaud GIULIANI
  */
@@ -70,7 +70,7 @@ class KoinContext(val beanRegistry: BeanRegistry, val propertyResolver: Property
      */
     inline fun <reified T : Any> provide(noinline definition: () -> T) {
 //        logger.finest("declare singleton $definition")
-        declare(definition, Scope.root())
+        declare(definition, Scope())
     }
 
     /**

@@ -23,6 +23,6 @@ abstract class Module {
      * Create Context function
      */
     fun declareContext(clazz: KClass<*>? = null, init: Context.() -> Unit)
-            = Context(clazz?.let { Scope(it) } ?: Scope.root(), koinContext).apply(init)
+            = Context(clazz?.let { Scope(it) } ?: Scope(), koinContext).apply(init)
 
 }

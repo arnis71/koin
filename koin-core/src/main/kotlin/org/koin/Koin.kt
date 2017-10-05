@@ -20,7 +20,7 @@ class Koin {
 
     init {
 //        logger.info("(-) Koin Started ! (-)")
-        instanceResolver.createContext(Scope.root())
+        instanceResolver.createContext(Scope())
     }
 
     /**
@@ -39,10 +39,7 @@ class Koin {
         modules.forEach {
             it.koinContext = koinContext
             val ctx = it.context()
-            val scope = ctx.contextScope
-            if (scope != null) {
-                instanceResolver.createContext(scope)
-            }
+            instanceResolver.createContext(ctx.contextScope)
             ctx.provided.forEach { beanRegistry.declare(it) }
         }
 //        logger.info("(-) ${beanRegistry.definitions.size} definitions loaded (-)")
