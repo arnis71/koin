@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  * Define dependencies & properties for actual context
  * @author - Arnaud GIULIANI
  */
-class Context(val koinContext: KoinContext) {
+class Context(val contextScope: Scope, val koinContext: KoinContext) {
 
     val provided = arrayListOf<BeanDefinition<*>>()
 
@@ -17,17 +17,17 @@ class Context(val koinContext: KoinContext) {
      * Dependency declaration
      */
 
-    /**
-     * Declared context scope
-     */
-    var contextScope: Scope? = null
-
-    /**
-     * declare a Context scope
-     */
-    fun scope(definition: () -> KClass<*>) {
-        contextScope = Scope(definition())
-    }
+//    /**
+//     * Declared context scope
+//     */
+//    var contextScope: Scope? = null
+//
+//    /**
+//     * declare a Context scope
+//     */
+//    fun scope(definition: () -> KClass<*>) {
+//        contextScope = Scope(definition())
+//    }
 
 //    /**
 //     * Provide a bean definition & empty name
@@ -39,7 +39,7 @@ class Context(val koinContext: KoinContext) {
      * with a name
      */
     inline fun <reified T : Any> provide(name: String = "", vararg bind: KClass<*> = emptyArray(), noinline definition: () -> T): BeanDefinition<T> {
-        val beanDefinition = BeanDefinition(definition, T::class, contextScope ?: Scope.root(), bindTypes = bind.toList(), name = name)
+        val beanDefinition = BeanDefinition(definition, T::class, contextScope, bindTypes = bind.toList(), name = name)
         provided += beanDefinition
         return beanDefinition
     }

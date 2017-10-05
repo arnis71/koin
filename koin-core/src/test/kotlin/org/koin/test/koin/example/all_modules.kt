@@ -1,6 +1,7 @@
 package org.koin.test.koin.example
 
 import org.koin.dsl.context.Context
+import org.koin.dsl.context.Scope
 import org.koin.dsl.module.Module
 
 
@@ -31,8 +32,8 @@ class SampleModuleD : Module() {
 
 class ScopedModuleB : Module() {
     override fun context() =
-            declareContext {
-                scope { ServiceB::class }
+            declareContext(ServiceB::class) {
+//                scope { ServiceB::class }
                 provide { ServiceB() }
             }
 }
@@ -75,8 +76,8 @@ class CleanMultiDependency : Module() {
 
 class ScopedModuleA : Module() {
     override fun context() =
-            declareContext {
-                scope { ServiceA::class }
+            declareContext(ServiceA::class) {
+//                scope { ServiceA::class }
                 provide { ServiceA(get()) }
             }
 }
@@ -95,6 +96,6 @@ class SampleModuleOA : Module() {
 
 class BindModuleB : Module() {
     override fun context() = declareContext {
-        provide { ServiceB() } bind { Processor::class }
+        provide { ServiceB() } bind Processor::class
     }
 }

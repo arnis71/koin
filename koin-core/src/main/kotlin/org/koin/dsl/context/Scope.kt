@@ -8,6 +8,7 @@ import kotlin.reflect.KClass
 data class Scope(val clazz: KClass<*>? = null) {
 
     companion object {
+        @JvmStatic
         fun root() = Scope()
     }
 }
